@@ -23,7 +23,7 @@ public class DbHelper extends SQLiteOpenHelper {
                 ThingEntry._ID + " INTEGER PRIMARY KEY," +
                 ThingEntry.COLUMN_NAME + " TEXT UNIQUE NOT NULL, " +
                 ThingEntry.COLUMN_DESCRIPTION + " TEXT NOT NULL, " +
-                ThingEntry.COLUMN_CREATED_DATE + " INTEGER NOT NULL, " +
+                ThingEntry.COLUMN_CREATED_DATE + " INTEGER NOT NULL " +
                 " );";
 
         final String SQL_CREATE_EXPRESS_TABLE = "CREATE TABLE " + ExpressEntry.TABLE_NAME + " (" +
