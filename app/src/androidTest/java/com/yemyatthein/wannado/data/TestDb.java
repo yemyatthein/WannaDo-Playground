@@ -9,8 +9,6 @@ import java.util.HashSet;
 
 public class TestDb extends AndroidTestCase {
 
-    static final long TEST_DATE = 1419033600L;  // December 20th, 2014
-
     void deleteTheDatabase() {
         mContext.deleteDatabase(DbHelper.DATABASE_NAME);
     }
@@ -91,10 +89,7 @@ public class TestDb extends AndroidTestCase {
         DbHelper dbHelper = new DbHelper(mContext);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
-        ContentValues testValues = new ContentValues();
-        testValues.put(DataContract.ThingEntry.COLUMN_NAME, "Algorithm Study");
-        testValues.put(DataContract.ThingEntry.COLUMN_CREATED_DATE, TEST_DATE);
-        testValues.put(DataContract.ThingEntry.COLUMN_DESCRIPTION, "Algorithm Study");
+        ContentValues testValues = TestUtil.createTestValueThingTable();
 
         long thingId = db.insert(DataContract.ThingEntry.TABLE_NAME, null, testValues);
 
@@ -111,6 +106,14 @@ public class TestDb extends AndroidTestCase {
         assertFalse( "Error: More than one record returned from thing query",
                 cursor.moveToNext() );
 
+        // Update Test
+        testValues.put(DataContract.ThingEntry.COLUMN_DESCRIPTION, "New Description");
+        int rowsAffected = db.update(DataContract.ThingEntry.TABLE_NAME, testValues,
+                                    DataContract.ThingEntry.TABLE_NAME + "." +
+                                            DataContract.ThingEntry._ID + " = ?",
+                                    new String[] {String.valueOf(thingId)});
+        assertEquals("Update fails.", 1, rowsAffected);
+
         cursor.close();
         db.close();
 
@@ -120,10 +123,7 @@ public class TestDb extends AndroidTestCase {
         DbHelper dbHelper = new DbHelper(mContext);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
-        ContentValues testValues = new ContentValues();
-        testValues.put(DataContract.ExpressEntry.COLUMN_THING_ID, 12345L);
-        testValues.put(DataContract.ExpressEntry.COLUMN_DATE, TEST_DATE);
-        testValues.put(DataContract.ExpressEntry.COLUMN_TYPE, 0);
+        ContentValues testValues = TestUtil.createTestValueExpressTable();
 
         long thingId = db.insert(DataContract.ExpressEntry.TABLE_NAME, null, testValues);
 

@@ -187,12 +187,15 @@ public class DataProvider extends ContentProvider {
     @Override
     public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
         final SQLiteDatabase db = mOpenHelper.getWritableDatabase();
+        int rowsAffected = 0;
         switch (sUriMatcher.match(uri)) {
             case THING:
+                rowsAffected = db.update(DataContract.ThingEntry.TABLE_NAME, values, selection,
+                                        selectionArgs);
                 break;
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
         }
-        return 0;
+        return rowsAffected;
     }
 }
