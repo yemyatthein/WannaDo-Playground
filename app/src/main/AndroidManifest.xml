@@ -20,6 +20,10 @@
             android:name=".DetailActivity"
             android:label="@string/title_activity_detail" >
         </activity>
+        <activity
+            android:name=".TestViewActivity"
+            android:label="Test View (TBD)" >
+        </activity>
 
         <provider
             android:authorities="com.yemyatthein.wannado"

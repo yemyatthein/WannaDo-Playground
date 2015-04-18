@@ -8,7 +8,6 @@ import android.content.pm.ProviderInfo;
 import android.database.Cursor;
 import android.net.Uri;
 import android.test.AndroidTestCase;
-import android.util.Log;
 
 public class TestProvider extends AndroidTestCase {
 
@@ -106,7 +105,6 @@ public class TestProvider extends AndroidTestCase {
 
         // With Condition
         long thingId = ContentUris.parseId(thingUri);
-        Log.d("XXXX", "Thing ID is " + thingId);
         thingCursor = mContext.getContentResolver()
                 .query(DataContract.ThingEntry.CONTENT_URI,
                         null, DataContract.ThingEntry._ID + " = ?",
