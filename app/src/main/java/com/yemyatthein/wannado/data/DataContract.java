@@ -33,6 +33,10 @@ public class DataContract {
         public static Uri buildThingUri(long id) {
             return ContentUris.withAppendedId(CONTENT_URI, id);
         }
+
+        public static String getIdFromUri(Uri uri) {
+            return uri.getPathSegments().get(1);
+        }
     }
 
     public static final class ExpressEntry implements BaseColumns {
@@ -53,6 +57,19 @@ public class DataContract {
 
         public static Uri buildExpressUri(long id) {
             return ContentUris.withAppendedId(CONTENT_URI, id);
+        }
+
+        public static Uri buildExpressWithThingUri(long thingId) {
+            return CONTENT_URI.buildUpon().appendPath(PATH_THING)
+                    .appendPath(Long.toString(thingId)).build();
+        }
+
+        public static String getIdFromUri(Uri uri) {
+            return uri.getPathSegments().get(1);
+        }
+
+        public static String getThingIdFromUri(Uri uri) {
+            return uri.getPathSegments().get(3);
         }
     }
 

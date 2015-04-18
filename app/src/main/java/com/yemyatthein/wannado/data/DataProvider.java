@@ -81,15 +81,39 @@ public class DataProvider extends ContentProvider {
                 break;
             }
             case THING_WITH_ID: {
-                retCursor = null;
+                retCursor = db.query(
+                        DataContract.ThingEntry.TABLE_NAME,
+                        projection,
+                        DataContract.ThingEntry._ID + " = ?",
+                        new String[] {DataContract.ThingEntry.getIdFromUri(uri)},
+                        null,
+                        null,
+                        sortOrder
+                );
                 break;
             }
             case EXPRESS_WITH_ID: {
-                retCursor = null;
+                retCursor = db.query(
+                        DataContract.ExpressEntry.TABLE_NAME,
+                        projection,
+                        DataContract.ExpressEntry._ID + " = ?",
+                        new String[] {DataContract.ExpressEntry.getIdFromUri(uri)},
+                        null,
+                        null,
+                        sortOrder
+                );
                 break;
             }
             case EXPRESS_WITH_THING: {
-                retCursor = null;
+                retCursor = db.query(
+                        DataContract.ExpressEntry.TABLE_NAME,
+                        projection,
+                        DataContract.ExpressEntry.COLUMN_THING_ID + " = ?",
+                        new String[] {DataContract.ExpressEntry.getThingIdFromUri(uri)},
+                        null,
+                        null,
+                        sortOrder
+                );
                 break;
             }
             default:
@@ -105,7 +129,7 @@ public class DataProvider extends ContentProvider {
             case THING:
                 return DataContract.ThingEntry.CONTENT_TYPE;
             case EXPRESS:
-                return DataContract.ThingEntry.CONTENT_TYPE;
+                return DataContract.ExpressEntry.CONTENT_TYPE;
             case THING_WITH_ID:
                 return DataContract.ThingEntry.CONTENT_ITEM_TYPE;
             case EXPRESS_WITH_ID:
@@ -165,8 +189,6 @@ public class DataProvider extends ContentProvider {
         final SQLiteDatabase db = mOpenHelper.getWritableDatabase();
         switch (sUriMatcher.match(uri)) {
             case THING:
-                break;
-            case EXPRESS:
                 break;
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);

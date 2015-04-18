@@ -20,6 +20,13 @@
             android:name=".DetailActivity"
             android:label="@string/title_activity_detail" >
         </activity>
+
+        <provider
+            android:authorities="com.yemyatthein.wannado"
+            android:name=".data.DataProvider"
+            android:exported="false"
+            android:syncable="true" />
+
     </application>
 
 </manifest>
