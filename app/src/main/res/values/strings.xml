@@ -1,8 +1,7 @@
 <resources>
     <string name="app_name">WannaDo</string>
 
-    <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    <string name="title_list_todos">Things Wanna Do</string>
-    <string name="title_activity_detail">DetailActivity</string>
+    <string name="title_list_things">20 Things I Wanna Do</string>
+
 </resources>

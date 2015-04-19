@@ -5,6 +5,8 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.text.format.Time;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -25,7 +27,7 @@ public class TestViewActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_test);
+        setContentView(R.layout._activity_test);
 
         // Insert
         Button btnInsert = (Button) findViewById(R.id.testBtnInsert);
@@ -38,7 +40,7 @@ public class TestViewActivity extends ActionBarActivity {
 
                 Time time = new Time();
                 time.setToNow();
-                String timeStamp = time.toString();
+                String timeStamp = String.valueOf(time.toMillis(true));
                 String currentName = values.getAsString(DataContract.ThingEntry.COLUMN_NAME);
                 values.put(DataContract.ThingEntry.COLUMN_NAME, currentName + timeStamp);
 
@@ -74,7 +76,6 @@ public class TestViewActivity extends ActionBarActivity {
                 Toast.makeText(getBaseContext(), "Clear", Toast.LENGTH_SHORT).show();
             }
         });
-
     }
 
 }
