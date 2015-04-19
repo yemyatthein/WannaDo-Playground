@@ -17,7 +17,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.yemyatthein.wannado.data.DataContract;
 
@@ -48,6 +47,11 @@ public class ThingFragment extends Fragment implements LoaderManager.LoaderCallb
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_debug) {
+            Intent intent = new Intent(getActivity().getApplicationContext(), TestViewActivity.class);
+            startActivity(intent);
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -62,7 +66,7 @@ public class ThingFragment extends Fragment implements LoaderManager.LoaderCallb
         Button btnNew = (Button) rootView.findViewById(R.id.btnNewThing);
         btnNew.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity().getBaseContext(), TestViewActivity.class);
+                Intent intent = new Intent(getActivity().getApplicationContext(), CreateActivity.class);
                 startActivity(intent);
             }
         });
@@ -73,7 +77,8 @@ public class ThingFragment extends Fragment implements LoaderManager.LoaderCallb
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                Toast.makeText(getActivity(), "Clicked!", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getActivity().getApplicationContext(), DetailActivity.class);
+                startActivity(intent);
             }
         });
         return rootView;

@@ -46,7 +46,7 @@ public class TestViewActivity extends ActionBarActivity {
 
                 getContentResolver().insert(
                         DataContract.ThingEntry.CONTENT_URI, values);
-                Toast.makeText(getBaseContext(), "Inserted", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Inserted", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -73,7 +73,7 @@ public class TestViewActivity extends ActionBarActivity {
                 txtView.setText("");
                 getContentResolver().delete(
                         DataContract.ThingEntry.CONTENT_URI, null, null);
-                Toast.makeText(getBaseContext(), "Clear", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Clear", Toast.LENGTH_SHORT).show();
             }
         });
     }
