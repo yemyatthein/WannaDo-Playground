@@ -1,15 +1,23 @@
 package com.yemyatthein.wannado;
 
+import android.content.ContentValues;
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.text.format.Time;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.os.Build;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import com.yemyatthein.wannado.data.DataContract;
 
 
 public class CreateActivity extends ActionBarActivity {
@@ -59,7 +67,35 @@ public class CreateActivity extends ActionBarActivity {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_create, container, false);
+            final View rootView = inflater.inflate(R.layout.fragment_create, container, false);
+            Button btnAddCreate = (Button) rootView.findViewById(R.id.btnAddCreate);
+            btnAddCreate.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    EditText txtName = (EditText) rootView.findViewById(R.id.txtNameCreate);
+                    EditText txtDesc = (EditText) rootView.findViewById(R.id.txtDescCreate);
+                    String name = txtName.getText().toString();
+                    String desc = txtDesc.getText().toString();
+                    if (!name.isEmpty() &&
+                            !desc.isEmpty()) {
+                        Time time = new Time();
+                        time.setToNow();
+
+                        ContentValues contentValues = new ContentValues();
+                        contentValues.put(DataContract.ThingEntry.COLUMN_NAME, name);
+                        contentValues.put(DataContract.ThingEntry.COLUMN_DESCRIPTION, desc);
+                        contentValues.put(DataContract.ThingEntry.COLUMN_CREATED_DATE,
+                                time.toMillis(true));
+
+                        getActivity().getContentResolver().insert(
+                                DataContract.ThingEntry.CONTENT_URI, contentValues);
+
+                        Intent intent = new Intent(getActivity().getApplicationContext(),
+                                DetailActivity.class);
+                        startActivity(intent);
+                    }
+                }
+            });
             return rootView;
         }
     }

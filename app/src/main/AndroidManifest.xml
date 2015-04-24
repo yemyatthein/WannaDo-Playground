@@ -30,11 +30,13 @@
 
         <activity
             android:name=".DetailActivity"
-            android:label="@string/title_activity_detail" >
+            android:label="@string/title_activity_detail"
+            android:parentActivityName=".MainActivity">
         </activity>
         <activity
             android:name=".CreateActivity"
-            android:label="@string/title_activity_create" >
+            android:label="@string/title_activity_create"
+            android:parentActivityName=".MainActivity">
         </activity>
     </application>
 

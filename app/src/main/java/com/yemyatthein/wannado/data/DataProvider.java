@@ -163,6 +163,7 @@ public class DataProvider extends ContentProvider {
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
         }
+        getContext().getContentResolver().notifyChange(returnUri, null);
         return returnUri;
     }
 
@@ -181,6 +182,9 @@ public class DataProvider extends ContentProvider {
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
         }
+        if (rowsDeleted > 0) {
+            getContext().getContentResolver().notifyChange(uri, null);
+        }
         return rowsDeleted;
     }
 
@@ -195,6 +199,9 @@ public class DataProvider extends ContentProvider {
                 break;
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
+        }
+        if (rowsAffected > 0) {
+            getContext().getContentResolver().notifyChange(uri, null);
         }
         return rowsAffected;
     }
