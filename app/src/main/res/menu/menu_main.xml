@@ -16,5 +16,11 @@
         android:orderInCategory="101"
         app:showAsAction="never" />
 
+    <item
+        android:id="@+id/action_new"
+        android:title="Create"
+        android:orderInCategory="101"
+        app:showAsAction="never" />
+
 
 </menu>

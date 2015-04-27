@@ -8,20 +8,10 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity$ThingFragment">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/title_list_things"/>
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/btnNewThing"
-        android:text="Add New"/>
-
     <ListView
         android:id="@+id/listview_thing"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:background="#EDF5F5"/>
 
 </LinearLayout>

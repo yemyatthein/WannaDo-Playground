@@ -52,6 +52,10 @@ public class ThingFragment extends Fragment implements LoaderManager.LoaderCallb
             Intent intent = new Intent(getActivity().getApplicationContext(), TestViewActivity.class);
             startActivity(intent);
         }
+        else if (id == R.id.action_new) {
+            Intent intent = new Intent(getActivity().getApplicationContext(), CreateActivity.class);
+            startActivity(intent);
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -62,14 +66,6 @@ public class ThingFragment extends Fragment implements LoaderManager.LoaderCallb
         thingAdapter = new ThingAdapter(getActivity(), null, 0);
 
         View rootView = inflater.inflate(R.layout.fragment_thing, container, false);
-
-        Button btnNew = (Button) rootView.findViewById(R.id.btnNewThing);
-        btnNew.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity().getApplicationContext(), CreateActivity.class);
-                startActivity(intent);
-            }
-        });
 
         ListView listView = (ListView) rootView.findViewById(R.id.listview_thing);
         listView.setAdapter(thingAdapter);
