@@ -65,7 +65,7 @@ public class ThingAdapter extends CursorAdapter {
                 ImageView btnNew = (ImageView) view.findViewById(R.id.imgBtnCourtesy);
                 btnNew.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
-                        Toast.makeText(ctx, "HEY", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ctx, "Thanks for the Courtesy Touch ;)", Toast.LENGTH_SHORT).show();
                     }
                 });
                 break;
