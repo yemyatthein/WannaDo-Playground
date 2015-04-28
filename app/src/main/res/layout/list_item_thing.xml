@@ -6,5 +6,6 @@
     android:layout_height="wrap_content"
     android:minHeight="?android:attr/listPreferredItemHeight"
     android:gravity="center_vertical"
+    android:paddingLeft="10dp"
     android:id="@+id/list_item_thing_textview"
     android:background="#FBF2EF"/>
