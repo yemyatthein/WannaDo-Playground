@@ -68,16 +68,27 @@ public class ThingFragment extends Fragment implements LoaderManager.LoaderCallb
 
         View rootView = inflater.inflate(R.layout.fragment_thing, container, false);
 
-        ListView listView = (ListView) rootView.findViewById(R.id.listview_thing);
+        final ListView listView = (ListView) rootView.findViewById(R.id.listview_thing);
         listView.setAdapter(thingAdapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 Intent intent = new Intent(getActivity().getApplicationContext(), DetailActivity.class);
+
+                Cursor cursor = (Cursor) listView.getItemAtPosition(position);
+                String nameString = cursor.getString(1);
+                String descriptionString = cursor.getString(2);
+
+                Bundle bundle = new Bundle();
+                bundle.putString("name", nameString);
+                bundle.putString("description", descriptionString);
+                intent.putExtras(bundle);
+
                 startActivity(intent);
             }
         });
+
         return rootView;
     }
 

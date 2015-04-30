@@ -11,7 +11,7 @@
     tools:context="com.yemyatthein.wannado.DetailActivity$PlaceholderFragment">
 
     <TextView
-        android:text="Develop Gxz Prototype"
+        android:id="@+id/txtDetailTitle"
         android:layout_width="wrap_content"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -20,7 +20,7 @@
         android:layout_height="wrap_content" />
 
     <TextView
-        android:text="The away side had substitute Kevin Kampl sent off in extra time after picking up a second yellow card but held on for penalties as Bastian Schweinsteiger twice missed with headers from close range."
+        android:id="@+id/txtDetailDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 

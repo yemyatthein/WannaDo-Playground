@@ -1,5 +1,6 @@
 package com.yemyatthein.wannado;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -65,7 +66,20 @@ public class ThingAdapter extends CursorAdapter {
                 ImageView btnNew = (ImageView) view.findViewById(R.id.imgBtnCourtesy);
                 btnNew.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
-                        Toast.makeText(ctx, "Thanks for the Courtesy Touch ;)", Toast.LENGTH_SHORT).show();
+                        final Dialog dialog = new Dialog(ctx);
+                        dialog.setContentView(R.layout.dialog_ctouch);
+                        dialog.setTitle("You're on fire!");
+                        TextView text = (TextView) dialog.findViewById(R.id.text);
+                        text.setText("This is 15th touch since you focus on this one ;)");
+
+                        Button dialogButton = (Button) dialog.findViewById(R.id.dialogButtonOK);
+                        dialogButton.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                dialog.dismiss();
+                            }
+                        });
+                        dialog.show();
                     }
                 });
                 break;

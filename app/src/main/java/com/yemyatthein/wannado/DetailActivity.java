@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.os.Build;
+import android.widget.TextView;
 
 
 public class DetailActivity extends ActionBarActivity {
@@ -60,6 +61,17 @@ public class DetailActivity extends ActionBarActivity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_detail, container, false);
+
+            TextView txtName = (TextView) rootView.findViewById(R.id.txtDetailTitle);
+            TextView txtDescription = (TextView) rootView.findViewById(R.id.txtDetailDescription);
+            Bundle b = getActivity().getIntent().getExtras();
+
+            String nameString = b.getString("name", "");
+            String descriptionString = b.getString("description", "");
+
+            txtName.setText(nameString);
+            txtDescription.setText(descriptionString);
+
             return rootView;
         }
     }
