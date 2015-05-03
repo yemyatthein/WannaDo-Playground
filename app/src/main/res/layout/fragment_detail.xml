@@ -11,6 +11,17 @@
     tools:context="com.yemyatthein.wannado.DetailActivity.DetailSummaryFragment">
 
     <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="This is your current focus."
+        android:id="@+id/txtDetailWarning"
+        android:background="#B25E73"
+        android:paddingLeft="3dp"
+        android:paddingRight="3dp"
+        android:textColor="#FFF"
+        android:layout_marginBottom="10dp"/>
+
+    <TextView
         android:id="@+id/txtDetailTitle"
         android:layout_width="wrap_content"
         android:textSize="18sp"
@@ -71,17 +82,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="This is your current focus."
-        android:id="@+id/txtDetailWarning"
-        android:background="#B25E73"
-        android:paddingLeft="3dp"
-        android:paddingRight="3dp"
-        android:textColor="#FFF"
-        android:layout_marginTop="10dp"/>
 
     <LinearLayout
         android:layout_width="fill_parent"

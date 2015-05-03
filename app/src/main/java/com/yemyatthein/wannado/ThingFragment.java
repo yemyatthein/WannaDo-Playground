@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -25,6 +26,7 @@ import com.yemyatthein.wannado.data.DataContract;
 public class ThingFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
 
     private static final int THING_LOADER = 0;
+    ListView listView;
 
     public static final String[] THING_COLUMNS = {
             DataContract.ThingEntry.TABLE_NAME + "." + DataContract.ThingEntry._ID,
@@ -70,7 +72,7 @@ public class ThingFragment extends Fragment implements LoaderManager.LoaderCallb
 
         View rootView = inflater.inflate(R.layout.fragment_thing, container, false);
 
-        final ListView listView = (ListView) rootView.findViewById(R.id.listview_thing);
+        listView = (ListView) rootView.findViewById(R.id.listview_thing);
         listView.setAdapter(thingAdapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -114,7 +116,7 @@ public class ThingFragment extends Fragment implements LoaderManager.LoaderCallb
                 THING_COLUMNS,
                 null,
                 null,
-                null);
+                DataContract.ThingEntry.COLUMN_IS_CURRENT + " DESC");
     }
 
     @Override
@@ -126,4 +128,5 @@ public class ThingFragment extends Fragment implements LoaderManager.LoaderCallb
     public void onLoaderReset(Loader<Cursor> cursorLoader) {
         thingAdapter.swapCursor(null);
     }
+
 }

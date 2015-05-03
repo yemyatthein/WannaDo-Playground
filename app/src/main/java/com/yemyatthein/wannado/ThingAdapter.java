@@ -40,7 +40,10 @@ public class ThingAdapter extends CursorAdapter {
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup parent) {
 
-        int viewType = getItemViewType(cursor);
+        int viewType = getItemViewType(cursor.getPosition());
+
+        Log.i("YMT", "From new: cursor and view type : " + cursor.getInt(0) + "-" + viewType);
+
         int layoutId = -1;
         switch (viewType) {
             case VIEW_TYPE_CURRENT: {
@@ -64,21 +67,25 @@ public class ThingAdapter extends CursorAdapter {
     public void bindView(View view, Context context, Cursor cursor) {
         ViewHolder viewHolder = (ViewHolder) view.getTag();
 
-        int viewType = getItemViewType(cursor);
+        int viewType = getItemViewType(cursor.getPosition());
+
+        Log.i("YMT", "From bind: cursor and view type : " + cursor.getInt(0) + "-" + viewType);
+
         switch (viewType) {
             case VIEW_TYPE_CURRENT: {
 
                 ContentValues contentValues = Utils.convertCursorRowToContentValThing(cursor);
 
                 ImageView btnNew = (ImageView) view.findViewById(R.id.imgBtnCourtesy);
-                btnNew.setOnClickListener(new CourtesyTouchListener(context, contentValues));
+                if (btnNew != null) {
+                    btnNew.setOnClickListener(new CourtesyTouchListener(context, contentValues));
 
-                TextView txtCtouchCount = (TextView) view.findViewById(R.id.txtCTouchCount);
-                txtCtouchCount.setText(String.valueOf(cursor.getInt(5)));
+                    TextView txtCtouchCount = (TextView) view.findViewById(R.id.txtCTouchCount);
+                    txtCtouchCount.setText(String.valueOf(cursor.getInt(5)));
 
-                String desc = cursor.getString(2);
-                viewHolder.desc.setText(desc);
-
+                    String desc = cursor.getString(2);
+                    viewHolder.desc.setText(desc);
+                }
                 break;
             }
             case VIEW_TYPE_OTHER: {
@@ -92,9 +99,15 @@ public class ThingAdapter extends CursorAdapter {
     }
 
     public int getItemViewType(Cursor cursor) {
+        int id = cursor.getInt(0);
         int current = cursor.getInt(4);
-        Log.i("YMT", "Current -> " + current);
+        Log.i("YMT", "Cursor Current -> " + id + "-" + current);
         return (current == 1) ? VIEW_TYPE_CURRENT : VIEW_TYPE_OTHER;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return (position == 0)? VIEW_TYPE_CURRENT: VIEW_TYPE_OTHER;
     }
 
     @Override
@@ -130,6 +143,7 @@ public class ThingAdapter extends CursorAdapter {
 
             assert(rowsAffected == 1);
 
+            /*
             final Dialog dialog = new Dialog(context);
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
             dialog.setContentView(R.layout.dialog_ctouch);
@@ -144,6 +158,7 @@ public class ThingAdapter extends CursorAdapter {
                 }
             });
             dialog.show();
+            */
         }
     }
 }
