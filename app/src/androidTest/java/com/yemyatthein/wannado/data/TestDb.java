@@ -50,6 +50,8 @@ public class TestDb extends AndroidTestCase {
         tblThingColumnSet.add(DataContract.ThingEntry.COLUMN_NAME);
         tblThingColumnSet.add(DataContract.ThingEntry.COLUMN_DESCRIPTION);
         tblThingColumnSet.add(DataContract.ThingEntry.COLUMN_CREATED_DATE);
+        tblThingColumnSet.add(DataContract.ThingEntry.COLUMN_IS_CURRENT);
+        tblThingColumnSet.add(DataContract.ThingEntry.COLUMN_CTOUCH);
 
         int columnNameIndex = cursor.getColumnIndex("name");
         do {

@@ -17,10 +17,15 @@ import com.yemyatthein.wannado.data.DataContract;
 public class TestViewActivity extends ActionBarActivity {
 
     private ContentValues createTestValueThingTable() {
+        String sampleDesc = "Juve settled as Stefano Sturaro bustled into the box and saw an " +
+                "effort charged down by Matias Silvestre in the 19th minute, while Fernando " +
+                "Llorente blazed over ...";
         ContentValues testValues = new ContentValues();
         testValues.put(DataContract.ThingEntry.COLUMN_NAME, "Algorithm Study");
         testValues.put(DataContract.ThingEntry.COLUMN_CREATED_DATE, 1419033600L);
-        testValues.put(DataContract.ThingEntry.COLUMN_DESCRIPTION, "Algorithm Study");
+        testValues.put(DataContract.ThingEntry.COLUMN_DESCRIPTION, sampleDesc);
+        testValues.put(DataContract.ThingEntry.COLUMN_IS_CURRENT, 0);
+        testValues.put(DataContract.ThingEntry.COLUMN_CTOUCH, 0);
         return testValues;
     }
 
@@ -42,7 +47,7 @@ public class TestViewActivity extends ActionBarActivity {
                 time.setToNow();
                 String timeStamp = String.valueOf(time.toMillis(true));
                 String currentName = values.getAsString(DataContract.ThingEntry.COLUMN_NAME);
-                values.put(DataContract.ThingEntry.COLUMN_NAME, currentName + timeStamp);
+                values.put(DataContract.ThingEntry.COLUMN_NAME, currentName + " " + timeStamp);
 
                 getContentResolver().insert(
                         DataContract.ThingEntry.CONTENT_URI, values);
@@ -59,8 +64,10 @@ public class TestViewActivity extends ActionBarActivity {
                         null, null, null, null);
                 while (cursor.moveToNext()) {
                     int nameIndex = cursor.getColumnIndex(DataContract.ThingEntry.COLUMN_NAME);
+                    int idIndex = cursor.getColumnIndex(DataContract.ThingEntry._ID);
                     String name = cursor.getString(nameIndex);
-                    txtView.setText(txtView.getText() + name + "\n");
+                    long thingId = cursor.getLong(idIndex);
+                    txtView.setText(txtView.getText() + name + " (" + thingId + ")" + "\n");
                 }
             }
         });

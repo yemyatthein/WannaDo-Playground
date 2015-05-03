@@ -111,6 +111,13 @@ public class TestProvider extends AndroidTestCase {
                         new String[] {String.valueOf(thingId)}, null);
         TestUtil.validateCursor("Error", thingCursor, testThingValues);
 
+        // With Content URI of ID
+        thingCursor = mContext.getContentResolver()
+                .query(DataContract.ThingEntry.buildThingUri(thingId),
+                        null, null, null, null);
+        TestUtil.validateCursor("Error", thingCursor, testThingValues);
+
+
         // Update Test
         testThingValues.put(DataContract.ThingEntry.COLUMN_DESCRIPTION, "New Description");
         int rowsAffected = mContext.getContentResolver().update(DataContract.ThingEntry.CONTENT_URI,

@@ -26,11 +26,13 @@ public class ThingFragment extends Fragment implements LoaderManager.LoaderCallb
 
     private static final int THING_LOADER = 0;
 
-    private static final String[] THING_COLUMNS = {
+    public static final String[] THING_COLUMNS = {
             DataContract.ThingEntry.TABLE_NAME + "." + DataContract.ThingEntry._ID,
             DataContract.ThingEntry.COLUMN_NAME,
             DataContract.ThingEntry.COLUMN_DESCRIPTION,
             DataContract.ThingEntry.COLUMN_CREATED_DATE,
+            DataContract.ThingEntry.COLUMN_IS_CURRENT,
+            DataContract.ThingEntry.COLUMN_CTOUCH,
     };
 
     private ThingAdapter thingAdapter;
@@ -74,15 +76,21 @@ public class ThingFragment extends Fragment implements LoaderManager.LoaderCallb
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                Intent intent = new Intent(getActivity().getApplicationContext(), DetailActivity.class);
+                Intent intent = new Intent(getActivity().getApplicationContext(),
+                        DetailActivity.class);
 
                 Cursor cursor = (Cursor) listView.getItemAtPosition(position);
+                long thingId = cursor.getLong(0);
                 String nameString = cursor.getString(1);
                 String descriptionString = cursor.getString(2);
+                int isCurrent = cursor.getInt(4);
 
                 Bundle bundle = new Bundle();
+                bundle.putLong("id", thingId);
                 bundle.putString("name", nameString);
                 bundle.putString("description", descriptionString);
+                bundle.putInt("isCurrent", isCurrent);
+
                 intent.putExtras(bundle);
 
                 startActivity(intent);

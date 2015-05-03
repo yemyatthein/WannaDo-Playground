@@ -11,7 +11,8 @@ public class TestUtil extends AndroidTestCase {
 
     static final long TEST_DATE = 1419033600L;  // December 20th, 2014
 
-    public static void validateCurrentRecord(String error, Cursor valueCursor, ContentValues expectedValues) {
+    public static void validateCurrentRecord(String error, Cursor valueCursor,
+                                             ContentValues expectedValues) {
         Set<Map.Entry<String, Object>> valueSet = expectedValues.valueSet();
         for (Map.Entry<String, Object> entry : valueSet) {
             String columnName = entry.getKey();
@@ -35,6 +36,8 @@ public class TestUtil extends AndroidTestCase {
         testValues.put(DataContract.ThingEntry.COLUMN_NAME, "Algorithm Study");
         testValues.put(DataContract.ThingEntry.COLUMN_CREATED_DATE, TEST_DATE);
         testValues.put(DataContract.ThingEntry.COLUMN_DESCRIPTION, "Algorithm Study");
+        testValues.put(DataContract.ThingEntry.COLUMN_IS_CURRENT, 0);
+        testValues.put(DataContract.ThingEntry.COLUMN_CTOUCH, 0);
         return testValues;
     }
 

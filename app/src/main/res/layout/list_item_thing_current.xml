@@ -33,7 +33,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="5dp"
-            android:text="They have four games remaining and have played a game more than three of the teams below them."/>
+            android:id="@+id/list_item_desc"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -49,14 +49,20 @@
         android:layout_width="0dp"
         android:layout_weight="15"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:gravity="center_vertical">
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:src="@mipmap/ic_launcher"
             android:id="@+id/imgBtnCourtesy"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtCTouchCount"
+            android:gravity="center"/>
     </LinearLayout>
 
 </LinearLayout>

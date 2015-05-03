@@ -29,6 +29,8 @@ public class DataContract {
         public static final String COLUMN_NAME = "name";
         public static final String COLUMN_DESCRIPTION = "description";
         public static final String COLUMN_CREATED_DATE = "created_date";
+        public static final String COLUMN_IS_CURRENT = "is_current";
+        public static final String COLUMN_CTOUCH = "ctouch";
 
         public static Uri buildThingUri(long id) {
             return ContentUris.withAppendedId(CONTENT_URI, id);

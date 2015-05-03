@@ -2,6 +2,8 @@ package com.yemyatthein.wannado;
 
 import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -86,12 +88,29 @@ public class CreateActivity extends ActionBarActivity {
                         contentValues.put(DataContract.ThingEntry.COLUMN_DESCRIPTION, desc);
                         contentValues.put(DataContract.ThingEntry.COLUMN_CREATED_DATE,
                                 time.toMillis(true));
+                        contentValues.put(DataContract.ThingEntry.COLUMN_IS_CURRENT, 0);
+                        contentValues.put(DataContract.ThingEntry.COLUMN_CTOUCH, 0);
 
-                        getActivity().getContentResolver().insert(
+                        Uri inserted = getActivity().getContentResolver().insert(
                                 DataContract.ThingEntry.CONTENT_URI, contentValues);
+                        Cursor cursor = getActivity().getContentResolver().query(inserted,
+                                ThingFragment.THING_COLUMNS, null, null, null);
+                        contentValues = Utils.convertCursorRowToContentValThing(cursor);
+                        long thingId = contentValues.getAsInteger(DataContract.ThingEntry._ID);
+                        int isCurrent = contentValues.getAsInteger(
+                                DataContract.ThingEntry.COLUMN_IS_CURRENT);
 
                         Intent intent = new Intent(getActivity().getApplicationContext(),
                                 DetailActivity.class);
+
+                        Bundle bundle = new Bundle();
+                        bundle.putLong("id", thingId);
+                        bundle.putString("name", name);
+                        bundle.putString("description", desc);
+                        bundle.putInt("isCurrent", isCurrent);
+
+                        intent.putExtras(bundle);
+
                         startActivity(intent);
                     }
                 }
