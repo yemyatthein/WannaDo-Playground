@@ -9,6 +9,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.text.format.Time;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,6 +22,7 @@ import android.widget.Toast;
 
 import com.yemyatthein.wannado.data.DataContract;
 
+// TODO: Handle cursor close!
 
 public class CreateActivity extends ActionBarActivity {
 
@@ -80,6 +82,33 @@ public class CreateActivity extends ActionBarActivity {
                     String desc = txtDesc.getText().toString();
                     if (!name.isEmpty() &&
                             !desc.isEmpty()) {
+
+                        // Shift  focus
+                        Cursor cursorOld = getActivity().getContentResolver().query(
+                                DataContract.ThingEntry.CONTENT_URI,
+                                null, DataContract.ThingEntry.COLUMN_IS_CURRENT + " = ?",
+                                new String[] {String.valueOf(1)}, null);
+                        if (cursorOld.moveToFirst()) {
+                            long thingIdOld = cursorOld.getLong(0);
+                            ContentValues contentValuesOld = Utils.convertCursorRowToContentValThing(
+                                    cursorOld);
+                            contentValuesOld.put(DataContract.ThingEntry.COLUMN_IS_CURRENT, 0);
+
+                            int rowsAffectedOld = getActivity().getContentResolver().update(
+                                    DataContract.ThingEntry.CONTENT_URI,
+                                    contentValuesOld,
+                                    DataContract.ThingEntry.TABLE_NAME + "." +
+                                            DataContract.ThingEntry._ID + " = ?",
+                                    new String[] {String.valueOf(thingIdOld)});
+
+                            assert(rowsAffectedOld == 1);
+
+                            Log.i("Created-YMT", "Shifted focus.");
+
+                        }
+
+                        // TODO: Switch focus record here
+
                         Time time = new Time();
                         time.setToNow();
 
@@ -88,13 +117,14 @@ public class CreateActivity extends ActionBarActivity {
                         contentValues.put(DataContract.ThingEntry.COLUMN_DESCRIPTION, desc);
                         contentValues.put(DataContract.ThingEntry.COLUMN_CREATED_DATE,
                                 time.toMillis(true));
-                        contentValues.put(DataContract.ThingEntry.COLUMN_IS_CURRENT, 0);
+                        contentValues.put(DataContract.ThingEntry.COLUMN_IS_CURRENT, 1);
                         contentValues.put(DataContract.ThingEntry.COLUMN_CTOUCH, 0);
 
                         Uri inserted = getActivity().getContentResolver().insert(
                                 DataContract.ThingEntry.CONTENT_URI, contentValues);
                         Cursor cursor = getActivity().getContentResolver().query(inserted,
-                                ThingFragment.THING_COLUMNS, null, null, null);
+                                null, null, null, null);
+                        cursor.moveToFirst();
                         contentValues = Utils.convertCursorRowToContentValThing(cursor);
                         long thingId = contentValues.getAsInteger(DataContract.ThingEntry._ID);
                         int isCurrent = contentValues.getAsInteger(

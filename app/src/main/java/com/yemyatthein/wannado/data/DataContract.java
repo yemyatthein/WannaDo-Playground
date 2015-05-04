@@ -56,6 +56,7 @@ public class DataContract {
         public static final String COLUMN_THING_ID = "thing_id";
         public static final String COLUMN_DATE = "date";
         public static final String COLUMN_TYPE = "type";
+        public static final String COLUMN_CTOUCH_ATM = "ctouch_atm";
 
         public static Uri buildExpressUri(long id) {
             return ContentUris.withAppendedId(CONTENT_URI, id);

@@ -9,7 +9,7 @@ import com.yemyatthein.wannado.data.DataContract.ExpressEntry;
 
 public class DbHelper extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 6;
 
     static final String DATABASE_NAME = "wannado.db";
 
@@ -21,7 +21,7 @@ public class DbHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         final String SQL_CREATE_THING_TABLE = "CREATE TABLE " + ThingEntry.TABLE_NAME + " (" +
                 ThingEntry._ID + " INTEGER PRIMARY KEY," +
-                ThingEntry.COLUMN_NAME + " TEXT UNIQUE NOT NULL, " +
+                ThingEntry.COLUMN_NAME + " TEXT NOT NULL, " +
                 ThingEntry.COLUMN_DESCRIPTION + " TEXT NOT NULL, " +
                 ThingEntry.COLUMN_CREATED_DATE + " INTEGER NOT NULL, " +
                 ThingEntry.COLUMN_IS_CURRENT + " INTEGER NOT NULL, " +
@@ -33,11 +33,12 @@ public class DbHelper extends SQLiteOpenHelper {
                 ExpressEntry.COLUMN_THING_ID + " INTEGER NOT NULL, " +
                 ExpressEntry.COLUMN_DATE + " INTEGER NOT NULL, " +
                 ExpressEntry.COLUMN_TYPE + " INTEGER NOT NULL," +
+                ExpressEntry.COLUMN_CTOUCH_ATM + " INTEGER NOT NULL," +
 
                 " FOREIGN KEY (" + ExpressEntry.COLUMN_THING_ID + ") REFERENCES " +
-                ThingEntry.TABLE_NAME + " (" + ThingEntry._ID + "), " +
+                ThingEntry.TABLE_NAME + " (" + ThingEntry._ID + ") " +
 
-                " UNIQUE (" + ExpressEntry.COLUMN_DATE + ") ON CONFLICT REPLACE);";
+                " );";
 
         sqLiteDatabase.execSQL(SQL_CREATE_THING_TABLE);
         sqLiteDatabase.execSQL(SQL_CREATE_EXPRESS_TABLE);

@@ -1,11 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<TextView
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:minHeight="?android:attr/listPreferredItemHeight"
-    android:gravity="center_vertical"
-    android:paddingLeft="10dp"
-    android:id="@+id/list_item_thing_textview"
-    android:background="#FBF2EF"/>
+    android:orientation="horizontal"
+        android:background="#FBF2EF">
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="0dp"
+        android:layout_weight="95"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="10dp">
+
+        <TextView
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="?android:attr/listPreferredItemHeight"
+            android:gravity="center_vertical"
+            android:paddingLeft="10dp"
+            android:text="Title here"
+            android:id="@+id/list_item_thing_textview"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="0dp"
+        android:layout_weight="15"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtCTouchCountInactive"
+            android:text="5"
+            android:gravity="center"/>
+    </LinearLayout>
+
+</LinearLayout>

@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.text.format.Time;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -87,6 +88,11 @@ public class DetailActivity extends ActionBarActivity {
             btnSwitchFocus.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
+                    Time time = new Time();
+                    time.setToNow();
+                    long timeNow = time.toMillis(true);
+
                     if (thingId == -1L) {
                         return;
                     }
@@ -98,10 +104,12 @@ public class DetailActivity extends ActionBarActivity {
                             null, DataContract.ThingEntry.COLUMN_IS_CURRENT + " = ?",
                             new String[] {String.valueOf(1)}, null);
                     if (cursorOld.moveToFirst()) {
+                        Log.i("YMT", "Old removed");
                         long thingIdOld = cursorOld.getLong(0);
-                        ContentValues contentValuesOld = Utils.convertCursorRowToContentValThing(cursorOld);
+                        int ctouchNowOld = cursorOld.getInt(5);
+                        ContentValues contentValuesOld = Utils.convertCursorRowToContentValThing(
+                                cursorOld);
                         contentValuesOld.put(DataContract.ThingEntry.COLUMN_IS_CURRENT, 0);
-                        contentValuesOld.put(DataContract.ThingEntry.COLUMN_CTOUCH, 0);
 
                         int rowsAffectedOld = getActivity().getContentResolver().update(
                                 DataContract.ThingEntry.CONTENT_URI,
@@ -112,7 +120,17 @@ public class DetailActivity extends ActionBarActivity {
 
                         assert(rowsAffectedOld == 1);
 
-                        // TODO: Record the end in Express table
+                        // Record departure in Express
+
+                        ContentValues contentValues = new ContentValues();
+                        contentValues.put(DataContract.ExpressEntry.COLUMN_THING_ID, thingIdOld);
+                        contentValues.put(DataContract.ExpressEntry.COLUMN_DATE, timeNow);
+                        contentValues.put(DataContract.ExpressEntry.COLUMN_TYPE, 0);
+                        contentValues.put(DataContract.ExpressEntry.COLUMN_CTOUCH_ATM, ctouchNowOld);
+
+                        getActivity().getContentResolver().insert(
+                                DataContract.ExpressEntry.CONTENT_URI, contentValues);
+                        Log.i("YMT", "Old value departure recorded.");
                     }
 
 
@@ -125,6 +143,7 @@ public class DetailActivity extends ActionBarActivity {
                         Log.i("YMT-", "No cursor for " + thingId);
                         return;
                     }
+                    int ctouchNowNew = cursor.getInt(5);
                     ContentValues contentValues = Utils.convertCursorRowToContentValThing(cursor);
                     contentValues.put(DataContract.ThingEntry.COLUMN_IS_CURRENT, 1);
 
@@ -139,6 +158,19 @@ public class DetailActivity extends ActionBarActivity {
 
                     txtWarning.setVisibility(View.VISIBLE);
                     btnSwitchFocus.setVisibility(View.GONE);
+
+                    // Record entry in Express
+
+                    ContentValues expressContentValues = new ContentValues();
+                    expressContentValues.put(DataContract.ExpressEntry.COLUMN_THING_ID, thingId);
+                    expressContentValues.put(DataContract.ExpressEntry.COLUMN_DATE, timeNow);
+                    expressContentValues.put(DataContract.ExpressEntry.COLUMN_TYPE, 1);
+                    expressContentValues.put(DataContract.ExpressEntry.COLUMN_CTOUCH_ATM,
+                            ctouchNowNew);
+
+                    getActivity().getContentResolver().insert(
+                            DataContract.ExpressEntry.CONTENT_URI, expressContentValues);
+
 
                     Toast.makeText(getActivity(), "This has become your current focus now.",
                             Toast.LENGTH_SHORT).show();

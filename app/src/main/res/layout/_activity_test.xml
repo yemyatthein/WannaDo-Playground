@@ -32,6 +32,27 @@
         android:layout_height="wrap_content"
         android:id="@+id/testTxtView"
         android:paddingTop="20dp"
+        android:text="Thing entries"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"/>
+
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:id="@+id/loadingSpinner"/>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="#000000" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/testTxtViewExpress"
+        android:text="Express entries"
+        android:paddingTop="20dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"/>
 

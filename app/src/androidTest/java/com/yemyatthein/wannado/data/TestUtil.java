@@ -46,6 +46,7 @@ public class TestUtil extends AndroidTestCase {
         testValues.put(DataContract.ExpressEntry.COLUMN_THING_ID, 12345L);
         testValues.put(DataContract.ExpressEntry.COLUMN_DATE, TEST_DATE);
         testValues.put(DataContract.ExpressEntry.COLUMN_TYPE, 0);
+        testValues.put(DataContract.ExpressEntry.COLUMN_CTOUCH_ATM, 11);
         return testValues;
     }
 
