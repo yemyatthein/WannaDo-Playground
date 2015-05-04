@@ -9,7 +9,7 @@ import com.yemyatthein.wannado.data.DataContract.ExpressEntry;
 
 public class DbHelper extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 6;
+    private static final int DATABASE_VERSION = 7;
 
     static final String DATABASE_NAME = "wannado.db";
 
@@ -23,7 +23,7 @@ public class DbHelper extends SQLiteOpenHelper {
                 ThingEntry._ID + " INTEGER PRIMARY KEY," +
                 ThingEntry.COLUMN_NAME + " TEXT NOT NULL, " +
                 ThingEntry.COLUMN_DESCRIPTION + " TEXT NOT NULL, " +
-                ThingEntry.COLUMN_CREATED_DATE + " INTEGER NOT NULL, " +
+                ThingEntry.COLUMN_CREATED_DATE + " BIGINT NOT NULL, " +
                 ThingEntry.COLUMN_IS_CURRENT + " INTEGER NOT NULL, " +
                 ThingEntry.COLUMN_CTOUCH + " INTEGER NOT NULL " +
                 " );";

@@ -138,6 +138,7 @@ public class CreateActivity extends ActionBarActivity {
                         bundle.putString("name", name);
                         bundle.putString("description", desc);
                         bundle.putInt("isCurrent", isCurrent);
+                        bundle.putLong("createdDate", time.toMillis(true));
 
                         intent.putExtras(bundle);
 

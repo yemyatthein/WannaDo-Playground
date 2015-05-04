@@ -16,6 +16,8 @@ import android.widget.TextView;
 
 import com.yemyatthein.wannado.data.DataContract;
 
+import java.text.SimpleDateFormat;
+
 public class ThingAdapter extends CursorAdapter {
 
     private static final int VIEW_TYPE_COUNT = 2;
@@ -85,6 +87,12 @@ public class ThingAdapter extends CursorAdapter {
 
                     String desc = cursor.getString(2);
                     viewHolder.desc.setText(desc);
+
+                    SimpleDateFormat monthDayFormat2 = new SimpleDateFormat("dd MMMM yyyy");
+                    String focusSince = monthDayFormat2.format(cursor.getLong(3));
+                    TextView txtListFocusingSince = (TextView) view.findViewById(
+                            R.id.txtListFocusingSince);
+                    txtListFocusingSince.setText("Focusing since " + focusSince);
                 }
                 break;
             }

@@ -85,6 +85,7 @@ public class ThingFragment extends Fragment implements LoaderManager.LoaderCallb
                 long thingId = cursor.getLong(0);
                 String nameString = cursor.getString(1);
                 String descriptionString = cursor.getString(2);
+                long createdDate = cursor.getLong(3);
                 int isCurrent = cursor.getInt(4);
 
                 Bundle bundle = new Bundle();
@@ -92,6 +93,7 @@ public class ThingFragment extends Fragment implements LoaderManager.LoaderCallb
                 bundle.putString("name", nameString);
                 bundle.putString("description", descriptionString);
                 bundle.putInt("isCurrent", isCurrent);
+                bundle.putLong("createdDate", createdDate);
 
                 intent.putExtras(bundle);
 

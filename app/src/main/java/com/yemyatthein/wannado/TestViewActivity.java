@@ -6,14 +6,14 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.text.format.Time;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.yemyatthein.wannado.data.DataContract;
+
+import java.text.SimpleDateFormat;
 
 public class TestViewActivity extends ActionBarActivity {
 
@@ -22,9 +22,14 @@ public class TestViewActivity extends ActionBarActivity {
                 "effort charged down by Matias Silvestre in the 19th minute, while Fernando " +
                 "Llorente blazed over ...";
 
+        Time time = new Time();
+        time.setToNow();
+
+        Log.i("YMT-Inserted", String.valueOf(time.toMillis(true)));
+
         ContentValues testValues = new ContentValues();
         testValues.put(DataContract.ThingEntry.COLUMN_NAME, "Algorithm Study");
-        testValues.put(DataContract.ThingEntry.COLUMN_CREATED_DATE, 1419033600L);
+        testValues.put(DataContract.ThingEntry.COLUMN_CREATED_DATE, time.toMillis(true));
         testValues.put(DataContract.ThingEntry.COLUMN_DESCRIPTION, sampleDesc);
         testValues.put(DataContract.ThingEntry.COLUMN_IS_CURRENT, 1);
         testValues.put(DataContract.ThingEntry.COLUMN_CTOUCH, 0);
@@ -75,6 +80,12 @@ public class TestViewActivity extends ActionBarActivity {
 
                 Time time = new Time();
                 time.setToNow();
+
+                SimpleDateFormat monthDayFormat = new SimpleDateFormat("dd MMMM yyyy");
+                String monthDayString = monthDayFormat.format(time.toMillis(true));
+
+                Log.i("YMT", "time is " + monthDayString);
+
                 String timeStamp = String.valueOf(time.toMillis(true));
                 String currentName = values.getAsString(DataContract.ThingEntry.COLUMN_NAME);
                 values.put(DataContract.ThingEntry.COLUMN_NAME, currentName + " " + timeStamp);

@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.test.AndroidTestCase;
+import android.util.Log;
 
 import java.util.HashSet;
 
@@ -101,6 +102,8 @@ public class TestDb extends AndroidTestCase {
                                  null, null, null);
 
         assertTrue( "Error: No Records returned from thing table query", cursor.moveToFirst() );
+
+        assertTrue(TestUtil.TEST_DATE==cursor.getInt(3));
 
         TestUtil.validateCurrentRecord("Error: Thing Query Validation Failed",
                 cursor, testValues);

@@ -19,6 +19,8 @@ import android.widget.Toast;
 
 import com.yemyatthein.wannado.data.DataContract;
 
+import java.text.SimpleDateFormat;
+
 
 public class DetailActivity extends ActionBarActivity {
 
@@ -72,6 +74,12 @@ public class DetailActivity extends ActionBarActivity {
             final TextView txtName = (TextView) rootView.findViewById(R.id.txtDetailTitle);
             final TextView txtDescription = (TextView) rootView.findViewById(R.id.txtDetailDescription);
             final TextView txtWarning = (TextView) rootView.findViewById(R.id.txtDetailWarning);
+            final TextView txtStatsCreatedOn = (TextView) rootView.findViewById(
+                    R.id.txtStatsCreatedOn);
+            final TextView txtStatsFocusCount = (TextView) rootView.findViewById(
+                    R.id.txtStatsFocusCount);
+            final TextView txtStatsFocusingSince = (TextView) rootView.findViewById(
+                    R.id.txtStatsFocusingSince);
 
             Bundle b = getActivity().getIntent().getExtras();
 
@@ -79,10 +87,45 @@ public class DetailActivity extends ActionBarActivity {
             String descriptionString = b.getString("description", "");
             final long thingId = b.getLong("id", -1L);
             final int isCurrent = b.getInt("isCurrent", 0);
+            final long createdDate = b.getLong("createdDate");
+
+            Log.i("YMT-Inserted", "Got back " + createdDate);
+
+            SimpleDateFormat monthDayFormat = new SimpleDateFormat("dd MMMM yyyy");
+            String monthDayString = monthDayFormat.format(createdDate);
 
             txtName.setText(nameString);
             txtDescription.setText(descriptionString);
+            txtStatsCreatedOn.setText(txtStatsCreatedOn.getText().toString() + monthDayString);
 
+            // Count # of Focus
+            Cursor cursorExpress = getActivity().getContentResolver().query(
+                    DataContract.ExpressEntry.CONTENT_URI,
+                    null, DataContract.ExpressEntry.COLUMN_THING_ID + " = ? AND " +
+                            DataContract.ExpressEntry.COLUMN_TYPE + " = ? ",
+                    new String[] {String.valueOf(thingId), String.valueOf(1)},
+                    DataContract.ExpressEntry.COLUMN_DATE + " ASC");
+            int focusCount = cursorExpress.getCount();
+
+            txtStatsFocusCount.setText(txtStatsFocusCount.getText().toString() +
+                    focusCount + " time(s).");
+
+            // Focusing Since value
+
+            if (isCurrent == 1 && focusCount > 0) {
+                txtStatsFocusingSince.setVisibility(View.VISIBLE);
+                cursorExpress.moveToLast();
+                long date = cursorExpress.getLong(2);
+
+                SimpleDateFormat monthDayFormat2 = new SimpleDateFormat("dd MMMM yyyy");
+                String monthDayString2 = monthDayFormat2.format(date);
+                txtStatsFocusingSince.setText(txtStatsFocusingSince.getText().toString() +
+                        monthDayString2);
+
+            }
+            else {
+                txtStatsFocusingSince.setVisibility(View.GONE);
+            }
 
             final Button btnSwitchFocus = (Button) rootView.findViewById(R.id.btnSwitchFocus);
             btnSwitchFocus.setOnClickListener(new View.OnClickListener() {

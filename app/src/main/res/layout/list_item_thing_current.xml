@@ -40,7 +40,8 @@
             android:layout_height="wrap_content"
             android:paddingBottom="15dp"
             android:textColor="#A4A4A4"
-            android:text="Focusing since 20 May 2015"/>
+            android:id="@+id/txtListFocusingSince"
+            android:text="Focusing since "/>
 
     </LinearLayout>
 
