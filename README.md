@@ -12,11 +12,15 @@ Some screenshots are shown below.
         </td>
         <td>
             <img src="screenshots/current_focus.png" width="150px" >
-            <div>List of Activities</div>
+            <div>Focused Activity</div>
         </td>
         <td>
             <img src="screenshots/no_focus.png" width="150px" >
-            <div>List of Activities</div>
+            <div>Other Activity</div>
+        </td>
+        <td>
+            <img src="screenshots/new_activity.png" width="150px" >
+            <div>New Activity</div>
         </td>
     </tr>
 </table>
