@@ -4,4 +4,4 @@ As a learning expereince, I created this app to understand concepts in Android d
 
 Some screenshots are shown below.
 
-![Alt text](screenshots/list_all.png =100x20 "List of Activities")
+<img src="screenshots/list_all.png" width="100px" >
