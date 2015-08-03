@@ -4,5 +4,11 @@ As a learning expereince, I created this app to understand concepts in Android d
 
 Some screenshots are shown below.
 
-<p>List of Activities</p>
-<img src="screenshots/list_all.png" width="200px" >
+<table>
+    <tr>
+        <td>
+            <img src="screenshots/list_all.png" width="200px" >
+            <div>List of Activities</div>
+        </td>
+    </tr>
+</table>
