@@ -4,4 +4,5 @@ As a learning expereince, I created this app to understand concepts in Android d
 
 Some screenshots are shown below.
 
-<img src="screenshots/list_all.png" width="100px" >
+<p>List of Activities</p>
+<img src="screenshots/list_all.png" width="200px" >
