@@ -7,7 +7,15 @@ Some screenshots are shown below.
 <table>
     <tr>
         <td>
-            <img src="screenshots/list_all.png" width="200px" >
+            <img src="screenshots/list_all.png" width="150px" >
+            <div>List of Activities</div>
+        </td>
+        <td>
+            <img src="screenshots/current_focus.png" width="150px" >
+            <div>List of Activities</div>
+        </td>
+        <td>
+            <img src="screenshots/no_focus.png" width="150px" >
             <div>List of Activities</div>
         </td>
     </tr>
